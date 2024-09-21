@@ -23,7 +23,8 @@ const handler = NextAuth({
             if (!params.user.email) {
                 return false;
             }
-
+            console.log(params.user);
+            
             try {
                 const existingUser = await prismaClient.user.findUnique({
                     where: {
@@ -41,7 +42,7 @@ const handler = NextAuth({
                 })
                 return true;
              } catch(e) {
-                console.log(e);
+                console.log("cannot sign in" , e);
                 return false;
              }
         },

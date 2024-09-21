@@ -11,7 +11,7 @@ const CreateStreamSchema = z.object({
     url: z.string()
 });
 
-const MAX_QUEUE_LEN = 20;
+const MAX_QUEUE_LEN = process.env.MAX_QUEUE_LEN || 20;
 
 export async function POST(req: NextRequest) {
     try {
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
             }
         })
 
-        if (existingActiveStream > MAX_QUEUE_LEN) {
+        if (existingActiveStream > Number(MAX_QUEUE_LEN)) {
             return NextResponse.json({
                 message: "Already at limit"
             }, {
